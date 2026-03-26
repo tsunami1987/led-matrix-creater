@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>任意尺寸 LED 动画编辑器 (多模式版)</title>
+    <style>
+        :root {
+            --bg-color: #1e1e1e;
+            --panel-bg: #2d2d2d;
+            --text-color: #e0e0e0;
+            --led-off: #3a2a2a;
+            --led-on: #ff3333;
+            --led-glow: rgba(255, 51, 51, 0.6);
+            --accent: #4a90e2;
+            --success: #2e8b57;
+            --danger: #b22222;
+            --warning: #d2691e;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            height: 100vh;
+            box-sizing: border-box;
+            gap: 20px;
+        }
+
+        .panel {
+            background-color: var(--panel-bg);
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .left-panel {
+            flex: 1;
+            align-items: center;
+            min-width: 550px;
+            overflow-y: auto;
+        }
+
+        .right-panel {
+            flex: 1;
+            min-width: 450px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .config-box {
+            background: #252525;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #444;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .config-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .config-row:last-child { margin-bottom: 0; }
+
+        input[type="number"] {
+            width: 60px;
+            background: #151515;
+            color: #fff;
+            border: 1px solid #555;
+            border-radius: 4px;
+            padding: 5px;
+            text-align: center;
+        }
+
+        select {
+            background: #151515;
+            color: #fff;
+            border: 1px solid #555;
+            border-radius: 4px;
+            padding: 6px;
+            font-family: inherit;
+            width: 250px;
+            cursor: pointer;
+        }
+
+        .matrix-safe-zone {
+            width: 100%;
+            height: 400px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0 20px 0;
+            overflow: hidden;
+        }
+
+        .matrix {
+            display: grid;
+            gap: 2px;
+            transition: transform 0.2s ease;
+        }
+
+        .led {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: var(--led-off);
+            cursor: pointer;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .led.active {
+            background-color: var(--led-on);
+            box-shadow: 0 0 8px var(--led-glow), inset 0 1px 3px rgba(255,255,255,0.3);
+        }
+
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        button:hover { filter: brightness(1.2); }
+        .btn-update { background-color: var(--warning); padding: 8px 15px;}
+        .btn-add { background-color: var(--success); grid-column: span 2; font-size: 16px;}
+        .btn-clear-array { background-color: var(--danger); padding: 8px 12px;}
+
+        textarea {
+            width: 100%;
+            flex-grow: 1;
+            background-color: #151515;
+            color: #a6e22e;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 15px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 13px;
+            resize: none;
+            box-sizing: border-box;
+            line-height: 1.5;
+            white-space: pre;
+        }
+        
+        input[type=range] { width: 120px; cursor: pointer; vertical-align: middle; }
+    </style>
+</head>
+<body>
+
+    <div class="panel left-panel">
+        <h2 style="text-align: center; margin-top: 0;">画布控制台</h2>
+        
+        <div class="config-box">
+            <div class="config-row">
+                <div>
+                    <label>尺寸: <input type="number" id="input-cols" value="8" min="1" max="64"> 宽(列)</label>
+                    <span style="color:#666; margin:0 5px;">✖</span>
+                    <label><input type="number" id="input-rows" value="8" min="1" max="64"> 高(行)</label>
+                </div>
+                <button class="btn-update" id="btn-update-size">重置画布</button>
+            </div>
+            <div class="config-row">
+                <label>导出模式:</label>
+                <select id="export-mode">
+                    <option value="chunk">模式 1: 按 8 位分块拆分 (纯C51安全)</option>
+                    <option value="single">模式 2: 单行宽变量 (16/32/64位自适应)</option>
+                </select>
+            </div>
+            <div class="config-row" style="justify-content: flex-start; gap: 20px;">
+                <label>旋转: <input type="range" id="angle-slider" min="-180" max="180" step="45" value="0"> <span id="angle-display">0°</span></label>
+                <label>缩放: <input type="range" id="scale-slider" min="0.2" max="2.0" step="0.1" value="1.0"> <span id="scale-display">1.0x</span></label>
+            </div>
+        </div>
+
+        <div class="matrix-safe-zone">
+            <div class="matrix" id="matrix"></div>
+        </div>
+
+        <div class="buttons-grid">
+            <button class="btn-add" id="btn-add-frame">➕ 添加当前帧到数组 (Add Frame)</button>
+            <button id="btn-clear-canvas">🧹 清空当前画布</button>
+            <button id="btn-invert">🔄 反转当前画布</button>
+        </div>
+    </div>
+
+    <div class="panel right-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <h2 style="margin: 0;">生成的 C51 代码</h2>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <span style="color: #a6e22e; font-weight: bold;" id="frame-counter">总计: 1 帧</span>
+                <button class="btn-clear-array" id="btn-clear-array">🗑️ 清空数组</button>
+            </div>
+        </div>
+        <textarea id="code-output" readonly></textarea>
+    </div>
+
+    <script>
+        const matrixEl = document.getElementById('matrix');
+        const codeOutputEl = document.getElementById('code-output');
+        const angleSlider = document.getElementById('angle-slider');
+        const scaleSlider = document.getElementById('scale-slider');
+        const modeSelect = document.getElementById('export-mode');
+        
+        // 修复点：将底层 JS 初始变量设为 8x8
+        let numRows = 8;
+        let numCols = 8;
+        let currentAngle = 0;
+        let currentScale = 1.0;
+
+        let gridState = [];
+        let savedFrames = []; 
+
+        function createMatrix() {
+            gridState = Array.from({length: numRows}, () => Array(numCols).fill(0));
+            let ledSize = Math.max(10, 35 - (Math.max(numRows, numCols) - 8) * 0.8);
+
+            matrixEl.innerHTML = '';
+            matrixEl.style.gridTemplateRows = `repeat(${numRows}, ${ledSize}px)`;
+            matrixEl.style.gridTemplateColumns = `repeat(${numCols}, ${ledSize}px)`;
+
+            for (let row = 0; row < numRows; row++) {
+                for (let col = 0; col < numCols; col++) {
+                    const led = document.createElement('div');
+                    led.classList.add('led');
+                    led.dataset.row = row;
+                    led.dataset.col = col;
+                    
+                    led.addEventListener('mousedown', toggleLed);
+                    led.addEventListener('mouseenter', function(e) {
+                        if (e.buttons === 1) toggleLed.call(this);
+                    });
+                    matrixEl.appendChild(led);
+                }
+            }
+            updateTransform();
+            updateCodeView();
+        }
+
+        function toggleLed() {
+            const r = parseInt(this.dataset.row);
+            const c = parseInt(this.dataset.col);
+            gridState[r][c] = gridState[r][c] === 0 ? 1 : 0;
+            this.classList.toggle('active');
+            updateCodeView();
+        }
+
+        function cloneGrid(grid) { return grid.map(row => [...row]); }
+
+        function updateTransform() {
+            matrixEl.style.transform = `scale(${currentScale}) rotate(${currentAngle}deg)`;
+        }
+
+        function generateMacro(macroName, bits, castType) {
+            let args = [];
+            let ops = [];
+            for (let i = bits - 1; i >= 0; i--) {
+                args.push(`b${i}`);
+                if (i > 0) {
+                    ops.push(`((${castType})b${i} << ${i})`);
+                } else {
+                    ops.push(`b0`);
+                }
+            }
+            let formattedArgs = "";
+            for (let i = 0; i < args.length; i += 8) {
+                formattedArgs += args.slice(i, i + 8).join(',') + (i + 8 < args.length ? ",\n              " : "");
+            }
+            return `#define ${macroName}(${formattedArgs}) \\\n    (${ops.join(' | ')})\n\n`;
+        }
+
+        function updateCodeView() {
+            const mode = modeSelect.value;
+            let codeStr = "/* Generated C51 LED Matrix Code */\n";
+
+            if (mode === 'chunk') {
+                const bytesPerRow = Math.ceil(numCols / 8);
+                codeStr += `/* Config: ${numCols} Cols (Width) x ${numRows} Rows (Height) (${bytesPerRow} Bytes per Row) */\n\n`;
+                codeStr += "#define MAKE_BYTE(b7,b6,b5,b4,b3,b2,b1,b0) \\\n    ((b7<<7)|(b6<<6)|(b5<<5)|(b4<<4)|(b3<<3)|(b2<<2)|(b1<<1)|b0)\n\n";
+                codeStr += "unsigned char code matrix_data[][] = {\n";
+
+                const printFrames = (frames) => {
+                    frames.forEach((frame) => {
+                        codeStr += "{\n";
+                        for (let r = 0; r < numRows; r++) {
+                            let byteStrs = [];
+                            for (let c = 0; c < numCols; c += 8) {
+                                let chunk = [];
+                                for (let i = 0; i < 8; i++) chunk.push(c + i < numCols ? frame[r][c + i] : 0);
+                                byteStrs.push(`MAKE_BYTE(${chunk.join(',')})`);
+                            }
+                            codeStr += `    ${byteStrs.join(', ')}, // Row ${r}\n`;
+                        }
+                        codeStr += "},\n";
+                    });
+                };
+                if(savedFrames.length > 0) printFrames(savedFrames);
+                codeStr += "    // --- 实时预览帧 ---\n";
+                printFrames([gridState]);
+
+            } else {
+                let bits = 8, dataType = "unsigned char", macroName = "MAKE_BYTE", cast = "unsigned char";
+                if (numCols > 32) {
+                    bits = 64; dataType = "unsigned long long"; macroName = "MAKE_QWORD"; cast = "unsigned long long";
+                } else if (numCols > 16) {
+                    bits = 32; dataType = "unsigned long"; macroName = "MAKE_DWORD"; cast = "unsigned long";
+                } else if (numCols > 8) {
+                    bits = 16; dataType = "unsigned short"; macroName = "MAKE_WORD"; cast = "unsigned int";
+                }
+                
+                codeStr += `/* Config: ${numCols} Cols (Width) x ${numRows} Rows (Height) (Single Variable Mode) */\n`;
+                if (bits === 64) codeStr += `/* WARNING: Standard Keil C51 does NOT support 64-bit integers. Use with ARM/STM32 compilers. */\n`;
+                codeStr += `\n${generateMacro(macroName, bits, cast)}`;
+                codeStr += `${dataType} code matrix_data[][] = {\n`;
+
+                const printFramesSingle = (frames) => {
+                    frames.forEach((frame) => {
+                        codeStr += "{\n";
+                        for (let r = 0; r < numRows; r++) {
+                            let chunk = [];
+                            for (let i = 0; i < bits; i++) chunk.push(i < numCols ? frame[r][i] : 0);
+                            codeStr += `    ${macroName}(${chunk.join(',')}), // Row ${r}\n`;
+                        }
+                        codeStr += "},\n";
+                    });
+                };
+                if(savedFrames.length > 0) printFramesSingle(savedFrames);
+                codeStr += "    // --- 实时预览帧 ---\n";
+                printFramesSingle([gridState]);
+            }
+
+            codeStr += "};\n";
+            codeOutputEl.value = codeStr;
+            document.getElementById('frame-counter').textContent = `总计: ${savedFrames.length + 1} 帧`;
+            codeOutputEl.scrollTop = codeOutputEl.scrollHeight;
+        }
+
+        // --- 事件监听 ---
+        document.getElementById('btn-update-size').addEventListener('click', () => {
+            const c = parseInt(document.getElementById('input-cols').value);
+            const r = parseInt(document.getElementById('input-rows').value);
+            if (r > 0 && c > 0 && r <= 64 && c <= 64) {
+                numRows = r; numCols = c; savedFrames = []; createMatrix();
+            } else {
+                alert("请输入 1 到 64 之间的有效尺寸！");
+            }
+        });
+
+        modeSelect.addEventListener('change', updateCodeView);
+        angleSlider.addEventListener('input', function() { currentAngle = this.value; document.getElementById('angle-display').textContent = currentAngle + '°'; updateTransform(); });
+        scaleSlider.addEventListener('input', function() { currentScale = this.value; document.getElementById('scale-display').textContent = currentScale + 'x'; updateTransform(); });
+
+        document.getElementById('btn-add-frame').addEventListener('click', () => { savedFrames.push(cloneGrid(gridState)); updateCodeView(); });
+        document.getElementById('btn-clear-canvas').addEventListener('click', () => { gridState = Array.from({length: numRows}, () => Array(numCols).fill(0)); document.querySelectorAll('.led').forEach(led => led.classList.remove('active')); updateCodeView(); });
+        document.getElementById('btn-invert').addEventListener('click', () => {
+            for (let r = 0; r < numRows; r++) for (let c = 0; c < numCols; c++) gridState[r][c] = gridState[r][c] === 0 ? 1 : 0;
+            document.querySelectorAll('.led').forEach(led => {
+                if (gridState[led.dataset.row][led.dataset.col] === 1) led.classList.add('active');
+                else led.classList.remove('active');
+            });
+            updateCodeView();
+        });
+        document.getElementById('btn-clear-array').addEventListener('click', () => { if(confirm("清空数组？")) { savedFrames = []; updateCodeView(); } });
+        document.body.addEventListener('dragstart', e => e.preventDefault()); document.body.addEventListener('drop', e => e.preventDefault());
+
+        createMatrix();
+    </script>
+</body>
+</html>

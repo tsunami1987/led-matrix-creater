@@ -1,0 +1,319 @@
+/* Generated C51 LED Matrix Code */
+/* Config: 8 Cols (Width) x 8 Rows (Height) (1 Bytes per Row) */
+
+#define MAKE_BYTE(b7,b6,b5,b4,b3,b2,b1,b0) \
+    ((b7<<7)|(b6<<6)|(b5<<5)|(b4<<4)|(b3<<3)|(b2<<2)|(b1<<1)|b0)
+
+unsigned char code matrix_data[][] = {
+{
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 0
+    MAKE_BYTE(0,0,1,0,1,0,0,0), // Row 1
+    MAKE_BYTE(0,1,0,0,0,1,0,0), // Row 2
+    MAKE_BYTE(1,0,0,0,0,0,1,0), // Row 3
+    MAKE_BYTE(0,1,0,0,0,0,0,1), // Row 4
+    MAKE_BYTE(0,0,1,0,0,0,1,0), // Row 5
+    MAKE_BYTE(0,0,0,1,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,0,1,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,0,0,0,0,0), // Row 0
+    MAKE_BYTE(0,1,0,0,0,0,0,0), // Row 1
+    MAKE_BYTE(0,0,1,0,0,0,0,0), // Row 2
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 3
+    MAKE_BYTE(0,0,0,0,1,0,0,0), // Row 4
+    MAKE_BYTE(0,0,0,0,0,1,0,0), // Row 5
+    MAKE_BYTE(0,0,0,0,0,0,1,0), // Row 6
+    MAKE_BYTE(0,0,0,0,0,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 0
+    MAKE_BYTE(0,0,1,0,1,0,0,0), // Row 1
+    MAKE_BYTE(0,1,0,0,0,1,0,0), // Row 2
+    MAKE_BYTE(1,0,0,0,1,0,0,0), // Row 3
+    MAKE_BYTE(0,0,0,1,0,0,0,1), // Row 4
+    MAKE_BYTE(0,0,1,0,0,0,1,0), // Row 5
+    MAKE_BYTE(0,0,0,1,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,0,1,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 0
+    MAKE_BYTE(0,0,1,0,1,0,0,0), // Row 1
+    MAKE_BYTE(0,1,0,0,0,1,0,0), // Row 2
+    MAKE_BYTE(1,0,0,0,1,0,1,0), // Row 3
+    MAKE_BYTE(0,0,0,1,0,0,0,1), // Row 4
+    MAKE_BYTE(0,0,0,0,0,0,1,0), // Row 5
+    MAKE_BYTE(0,0,0,0,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,0,1,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 0
+    MAKE_BYTE(0,0,0,0,1,0,0,0), // Row 1
+    MAKE_BYTE(0,0,0,0,0,1,0,0), // Row 2
+    MAKE_BYTE(1,0,0,0,1,0,1,0), // Row 3
+    MAKE_BYTE(0,1,0,1,0,0,0,1), // Row 4
+    MAKE_BYTE(0,0,1,0,0,0,0,0), // Row 5
+    MAKE_BYTE(0,0,0,0,0,0,0,0), // Row 6
+    MAKE_BYTE(0,0,0,0,0,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 0
+    MAKE_BYTE(0,0,1,0,0,0,0,0), // Row 1
+    MAKE_BYTE(0,1,0,0,0,1,0,0), // Row 2
+    MAKE_BYTE(1,0,0,0,1,0,1,0), // Row 3
+    MAKE_BYTE(0,1,0,1,0,0,0,1), // Row 4
+    MAKE_BYTE(0,0,1,0,0,0,1,0), // Row 5
+    MAKE_BYTE(0,0,0,0,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,0,1,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,0,0,0,0,0), // Row 0
+    MAKE_BYTE(0,0,1,0,0,0,0,0), // Row 1
+    MAKE_BYTE(0,1,0,0,0,1,0,0), // Row 2
+    MAKE_BYTE(1,0,0,0,1,0,1,0), // Row 3
+    MAKE_BYTE(0,1,0,1,0,0,0,1), // Row 4
+    MAKE_BYTE(0,0,1,0,0,0,1,0), // Row 5
+    MAKE_BYTE(0,0,0,1,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,0,1,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 0
+    MAKE_BYTE(0,0,1,0,1,0,0,0), // Row 1
+    MAKE_BYTE(0,1,0,0,0,1,0,0), // Row 2
+    MAKE_BYTE(1,0,0,0,0,0,1,0), // Row 3
+    MAKE_BYTE(0,0,0,0,0,0,0,1), // Row 4
+    MAKE_BYTE(0,0,0,0,0,0,0,0), // Row 5
+    MAKE_BYTE(0,0,0,0,0,0,0,0), // Row 6
+    MAKE_BYTE(0,0,0,0,0,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 0
+    MAKE_BYTE(0,0,1,0,1,0,0,0), // Row 1
+    MAKE_BYTE(0,1,0,0,0,1,0,0), // Row 2
+    MAKE_BYTE(1,0,0,0,1,0,1,0), // Row 3
+    MAKE_BYTE(0,1,0,1,0,0,0,1), // Row 4
+    MAKE_BYTE(0,0,1,0,0,0,1,0), // Row 5
+    MAKE_BYTE(0,0,0,1,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,0,1,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 0
+    MAKE_BYTE(0,0,1,0,1,0,0,0), // Row 1
+    MAKE_BYTE(0,1,0,0,0,1,0,0), // Row 2
+    MAKE_BYTE(1,0,0,0,1,0,1,0), // Row 3
+    MAKE_BYTE(0,1,0,1,0,0,0,1), // Row 4
+    MAKE_BYTE(0,0,1,0,0,0,1,0), // Row 5
+    MAKE_BYTE(0,0,0,0,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,0,1,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,0,1,0,0,0), // Row 0
+    MAKE_BYTE(0,0,0,1,0,1,0,0), // Row 1
+    MAKE_BYTE(0,0,1,0,0,0,1,0), // Row 2
+    MAKE_BYTE(0,0,0,1,0,0,0,1), // Row 3
+    MAKE_BYTE(1,0,0,0,1,0,1,0), // Row 4
+    MAKE_BYTE(0,1,0,0,0,1,0,0), // Row 5
+    MAKE_BYTE(0,0,1,0,0,0,0,0), // Row 6
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 0
+    MAKE_BYTE(0,0,0,0,1,0,0,0), // Row 1
+    MAKE_BYTE(0,0,0,0,0,1,0,0), // Row 2
+    MAKE_BYTE(1,0,0,0,0,0,1,0), // Row 3
+    MAKE_BYTE(0,1,0,0,0,0,0,1), // Row 4
+    MAKE_BYTE(0,0,1,0,0,0,0,0), // Row 5
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 6
+    MAKE_BYTE(0,0,0,0,1,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 0
+    MAKE_BYTE(0,0,1,0,1,0,0,0), // Row 1
+    MAKE_BYTE(0,1,0,0,0,1,0,0), // Row 2
+    MAKE_BYTE(0,0,0,0,1,0,0,0), // Row 3
+    MAKE_BYTE(1,0,0,1,0,0,0,1), // Row 4
+    MAKE_BYTE(0,1,0,0,1,0,1,0), // Row 5
+    MAKE_BYTE(0,0,1,0,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 0
+    MAKE_BYTE(0,0,1,0,1,0,0,0), // Row 1
+    MAKE_BYTE(0,1,0,0,0,1,0,0), // Row 2
+    MAKE_BYTE(0,0,0,0,1,0,1,0), // Row 3
+    MAKE_BYTE(1,0,0,1,0,0,0,1), // Row 4
+    MAKE_BYTE(0,1,0,0,0,0,1,0), // Row 5
+    MAKE_BYTE(0,0,1,0,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 0
+    MAKE_BYTE(0,0,0,0,1,0,0,0), // Row 1
+    MAKE_BYTE(0,1,0,0,0,1,0,0), // Row 2
+    MAKE_BYTE(0,0,1,0,1,0,1,0), // Row 3
+    MAKE_BYTE(1,0,0,1,0,0,0,1), // Row 4
+    MAKE_BYTE(0,1,0,0,0,0,0,0), // Row 5
+    MAKE_BYTE(0,0,1,0,0,0,0,0), // Row 6
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 0
+    MAKE_BYTE(0,0,1,0,0,0,0,0), // Row 1
+    MAKE_BYTE(0,1,0,0,0,1,0,0), // Row 2
+    MAKE_BYTE(0,0,1,0,1,0,1,0), // Row 3
+    MAKE_BYTE(1,0,0,1,0,0,0,1), // Row 4
+    MAKE_BYTE(0,1,0,0,0,0,1,0), // Row 5
+    MAKE_BYTE(0,0,1,0,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 0
+    MAKE_BYTE(0,0,1,0,0,0,0,0), // Row 1
+    MAKE_BYTE(0,1,0,0,0,1,0,0), // Row 2
+    MAKE_BYTE(0,0,1,0,1,0,1,0), // Row 3
+    MAKE_BYTE(1,0,0,1,0,0,0,1), // Row 4
+    MAKE_BYTE(0,1,0,0,1,0,1,0), // Row 5
+    MAKE_BYTE(0,0,1,0,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 0
+    MAKE_BYTE(0,0,1,0,1,0,0,0), // Row 1
+    MAKE_BYTE(0,1,0,0,0,1,0,0), // Row 2
+    MAKE_BYTE(0,0,0,0,0,0,1,0), // Row 3
+    MAKE_BYTE(1,0,0,0,0,0,0,1), // Row 4
+    MAKE_BYTE(0,1,0,0,0,0,0,0), // Row 5
+    MAKE_BYTE(0,0,1,0,0,0,0,0), // Row 6
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 0
+    MAKE_BYTE(0,0,1,0,1,0,0,0), // Row 1
+    MAKE_BYTE(0,1,0,0,0,1,0,0), // Row 2
+    MAKE_BYTE(0,0,1,0,1,0,1,0), // Row 3
+    MAKE_BYTE(1,0,0,1,0,0,0,1), // Row 4
+    MAKE_BYTE(0,1,0,0,1,0,1,0), // Row 5
+    MAKE_BYTE(0,0,1,0,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 0
+    MAKE_BYTE(0,0,1,0,1,0,0,0), // Row 1
+    MAKE_BYTE(0,1,0,0,0,1,0,0), // Row 2
+    MAKE_BYTE(0,0,1,0,1,0,1,0), // Row 3
+    MAKE_BYTE(1,0,0,1,0,0,0,1), // Row 4
+    MAKE_BYTE(0,1,0,0,0,0,1,0), // Row 5
+    MAKE_BYTE(0,0,1,0,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,0,1,1,0,0), // Row 0
+    MAKE_BYTE(0,0,0,1,0,0,1,0), // Row 1
+    MAKE_BYTE(0,0,0,1,0,0,0,1), // Row 2
+    MAKE_BYTE(0,1,1,0,1,0,0,1), // Row 3
+    MAKE_BYTE(1,0,0,1,0,1,1,0), // Row 4
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 5
+    MAKE_BYTE(0,0,1,0,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,1,1,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 0
+    MAKE_BYTE(0,0,0,0,1,0,0,0), // Row 1
+    MAKE_BYTE(0,0,0,0,0,1,0,0), // Row 2
+    MAKE_BYTE(0,1,1,0,0,0,1,0), // Row 3
+    MAKE_BYTE(1,0,0,1,0,0,0,1), // Row 4
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 5
+    MAKE_BYTE(0,0,1,0,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,1,1,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,1,1,0,0,0), // Row 0
+    MAKE_BYTE(0,0,1,0,0,1,0,0), // Row 1
+    MAKE_BYTE(0,0,0,0,1,0,0,0), // Row 2
+    MAKE_BYTE(0,1,1,0,1,0,0,1), // Row 3
+    MAKE_BYTE(1,0,0,1,0,1,1,0), // Row 4
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 5
+    MAKE_BYTE(0,0,1,0,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,1,1,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,0,1,1,0,0), // Row 0
+    MAKE_BYTE(0,0,0,1,0,0,1,0), // Row 1
+    MAKE_BYTE(0,0,0,0,0,1,0,1), // Row 2
+    MAKE_BYTE(0,1,1,0,0,0,0,1), // Row 3
+    MAKE_BYTE(1,0,0,1,0,0,1,0), // Row 4
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 5
+    MAKE_BYTE(0,0,1,0,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,1,1,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,0,1,0,0,0), // Row 0
+    MAKE_BYTE(0,0,1,0,0,1,0,0), // Row 1
+    MAKE_BYTE(0,0,0,1,0,1,1,0), // Row 2
+    MAKE_BYTE(0,1,1,0,1,0,0,1), // Row 3
+    MAKE_BYTE(1,0,0,1,0,0,0,0), // Row 4
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 5
+    MAKE_BYTE(0,0,1,0,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,1,1,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,0,1,0,0,0), // Row 0
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 1
+    MAKE_BYTE(0,0,0,1,0,1,1,0), // Row 2
+    MAKE_BYTE(0,1,1,0,1,0,0,1), // Row 3
+    MAKE_BYTE(1,0,0,1,0,0,0,1), // Row 4
+    MAKE_BYTE(0,0,0,1,0,0,1,0), // Row 5
+    MAKE_BYTE(0,0,1,0,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,1,1,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 0
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 1
+    MAKE_BYTE(0,0,0,1,0,1,1,0), // Row 2
+    MAKE_BYTE(0,1,1,0,1,0,0,1), // Row 3
+    MAKE_BYTE(1,0,0,1,0,1,0,1), // Row 4
+    MAKE_BYTE(0,0,0,1,0,0,1,0), // Row 5
+    MAKE_BYTE(0,0,1,0,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,1,1,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,1,1,0,0,0), // Row 0
+    MAKE_BYTE(0,0,1,0,0,1,0,0), // Row 1
+    MAKE_BYTE(0,0,0,0,0,0,1,0), // Row 2
+    MAKE_BYTE(0,1,1,0,0,0,0,1), // Row 3
+    MAKE_BYTE(1,0,0,1,0,0,0,0), // Row 4
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 5
+    MAKE_BYTE(0,0,1,0,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,1,1,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,1,1,1,0,0), // Row 0
+    MAKE_BYTE(0,0,1,0,0,0,1,0), // Row 1
+    MAKE_BYTE(0,0,0,1,0,1,0,1), // Row 2
+    MAKE_BYTE(0,1,1,0,1,0,0,1), // Row 3
+    MAKE_BYTE(1,0,0,1,0,1,0,1), // Row 4
+    MAKE_BYTE(0,0,0,1,0,0,1,0), // Row 5
+    MAKE_BYTE(0,0,1,0,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,1,1,0,0,0), // Row 7
+},
+{
+    MAKE_BYTE(0,0,0,1,1,1,0,0), // Row 0
+    MAKE_BYTE(0,0,1,0,0,0,1,0), // Row 1
+    MAKE_BYTE(0,0,0,1,0,1,0,1), // Row 2
+    MAKE_BYTE(0,1,1,0,1,0,0,1), // Row 3
+    MAKE_BYTE(1,0,0,1,0,0,0,1), // Row 4
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 5
+    MAKE_BYTE(0,0,1,0,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,1,1,0,0,0), // Row 7
+},
+    //29
+{
+    MAKE_BYTE(0,0,0,1,1,1,0,0), // Row 0
+    MAKE_BYTE(0,0,1,0,0,0,1,0), // Row 1
+    MAKE_BYTE(0,0,0,1,0,1,0,1), // Row 2
+    MAKE_BYTE(0,1,1,0,1,0,0,1), // Row 3
+    MAKE_BYTE(1,0,0,1,0,0,0,1), // Row 4
+    MAKE_BYTE(0,0,0,1,0,0,0,0), // Row 5
+    MAKE_BYTE(0,0,1,0,0,1,0,0), // Row 6
+    MAKE_BYTE(0,0,0,1,1,0,0,0), // Row 7
+},
+};
